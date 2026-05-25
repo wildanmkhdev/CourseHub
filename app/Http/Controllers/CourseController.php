@@ -50,8 +50,12 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Course $course) {}
-
+    public function show(Request $request, Course $course)
+    {
+        // Mengembalikan view 'courses.show' (sesuaikan dengan nama folder view Anda)
+        // dan mengirimkan data $course ke dalam view tersebut.
+        return view('courses.show', compact('course'));
+    }
 
 
     /**
@@ -59,7 +63,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('courses.edit');
+        return view('courses.edit', compact('course'));
     }
 
     /**

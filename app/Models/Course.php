@@ -12,4 +12,8 @@ class Course extends Model
         'thumbnail',
         'price'
     ];
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

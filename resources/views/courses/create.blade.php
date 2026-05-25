@@ -1,91 +1,103 @@
-@extends('layouts.app')
+<x-app-layout>
+    <div class="min-h-screen bg-[#F0F0F0] py-12 px-4 font-sans text-black">
+        <div
+            class="max-w-3xl mx-auto bg-white border-4 border-black p-8 md:p-10 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
 
-@section('content')
-    <div class="min-h-screen bg-gray-100 py-10">
-        <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+            <div
+                class="border-b-4 border-black pb-4 mb-8 bg-yellow-300 -mx-8 -mt-8 md:-mx-10 md:-mt-10 p-6 shadow-[0_4px_0px_0px_rgba(0,0,0,1)]">
+                <h1 class="text-3xl font-black uppercase tracking-wider">
+                    Tambah Course Baru
+                </h1>
 
-            <h1 class="text-3xl font-bold mb-6 text-gray-800">
-                Tambah Course
-            </h1>
+                <p class="text-xs font-bold uppercase mt-1 text-gray-800">
+                    Isi manifes kelas untuk dipublikasikan ke hub.
+                </p>
+            </div>
 
-            <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
 
                 @csrf
 
                 {{-- Title --}}
                 <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-                        Title
+                    <label class="block mb-2 text-sm font-black uppercase tracking-wide">
+                        Judul Course
                     </label>
 
-                    <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan judul course"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" name="title" value="{{ old('title') }}"
+                        placeholder="Contoh: MASTERING TAILWIND CSS"
+                        class="w-full border-4 border-black bg-white px-4 py-3 font-bold placeholder-gray-400 focus:outline-none focus:bg-lime-50 transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
 
                     @error('title')
-                        <p class="text-red-500 text-sm mt-1">
-                            {{ $message }}
-                        </p>
+                        <div
+                            class="bg-red-400 text-black font-bold text-xs uppercase px-3 py-1.5 border-2 border-black mt-2 inline-block">
+                            ⚠️ {{ $message }}
+                        </div>
                     @enderror
                 </div>
 
                 {{-- Description --}}
                 <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-                        Description
+                    <label class="block mb-2 text-sm font-black uppercase tracking-wide">
+                        Deskripsi
                     </label>
 
-                    <textarea name="description" rows="5" placeholder="Masukkan deskripsi course"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description') }}</textarea>
+                    <textarea name="description" rows="5" placeholder="Tulis deskripsi kelas..."
+                        class="w-full border-4 border-black bg-white px-4 py-3 font-bold placeholder-gray-400 focus:outline-none focus:bg-lime-50 transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">{{ old('description') }}</textarea>
 
                     @error('description')
-                        <p class="text-red-500 text-sm mt-1">
-                            {{ $message }}
-                        </p>
+                        <div
+                            class="bg-red-400 text-black font-bold text-xs uppercase px-3 py-1.5 border-2 border-black mt-2 inline-block">
+                            ⚠️ {{ $message }}
+                        </div>
                     @enderror
                 </div>
 
-                {{-- Thumbnail --}}
-                <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-                        Thumbnail
-                    </label>
+                {{-- Thumbnail & Price --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                    <input type="file" name="thumbnail"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white">
+                    <div>
+                        <label class="block mb-2 text-sm font-black uppercase tracking-wide">
+                            Thumbnail
+                        </label>
 
-                    @error('thumbnail')
-                        <p class="text-red-500 text-sm mt-1">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                        <input type="file" name="thumbnail"
+                            class="w-full border-4 border-black bg-white px-4 py-2 font-bold">
+
+                        @error('thumbnail')
+                            <div
+                                class="bg-red-400 text-black font-bold text-xs uppercase px-3 py-1.5 border-2 border-black mt-2 inline-block">
+                                ⚠️ {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block mb-2 text-sm font-black uppercase tracking-wide">
+                            Harga
+                        </label>
+
+                        <input type="number" name="price" value="{{ old('price') }}" placeholder="150000"
+                            class="w-full border-4 border-black bg-white px-4 py-3 font-bold">
+
+                        @error('price')
+                            <div
+                                class="bg-red-400 text-black font-bold text-xs uppercase px-3 py-1.5 border-2 border-black mt-2 inline-block">
+                                ⚠️ {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
                 </div>
 
-                {{-- Price --}}
-                <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700">
-                        Price
-                    </label>
-
-                    <input type="number" name="price" value="{{ old('price') }}" placeholder="Masukkan harga course"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-
-                    @error('price')
-                        <p class="text-red-500 text-sm mt-1">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                {{-- Button --}}
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-200">
+                        class="bg-lime-400 text-black font-black uppercase px-8 py-4 border-4 border-black">
                         Simpan Course
                     </button>
                 </div>
 
             </form>
-
         </div>
     </div>
-@endsection
+</x-app-layout>
